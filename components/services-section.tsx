@@ -1,99 +1,265 @@
 "use client"
 
 import { useState } from "react"
-import { Droplets, Sparkles, Wind, Wrench, Clock } from "lucide-react"
-import { services, CATEGORIES, SETMORE_URL, type ServiceCategory } from "@/lib/services"
+import Image from "next/image"
+import {
+  Droplets,
+  Sparkles,
+  Wind,
+  Wrench,
+  Clock,
+} from "lucide-react"
 
-const CATEGORY_ICON: Record<ServiceCategory, typeof Droplets> = {
+import {
+  services,
+  CATEGORIES,
+  SETMORE_URL,
+  type ServiceCategory,
+} from "@/lib/services"
+
+const CATEGORY_ICON: Record<
+  ServiceCategory,
+  typeof Droplets
+> = {
   Cleaning: Droplets,
   Detailing: Sparkles,
   Steam: Wind,
   Diagnostics: Wrench,
 }
 
+const SERVICE_IMAGES: Record<string, string> = {
+  "Outside/Inside Only Sedan": "/SEDAN.jpg",
+  "Regular – Sedan": "/SEDAN.jpg",
+
+  "Regular CRV": "/CRV-RAV4-VOXY.jpg",
+
+  "Regular Bus": "/COASTER.jpg",
+
+  "Regular Land Cruiser": "/CRV-RAV4-VOXY.jpg",
+
+  "Regular Pick-up": "/hiace-Prada-pickups-regular.jpg",
+
+  "Outside Only Pick-up": "/hiace-Prada-pickups-regular.jpg",
+
+  "Outside/Inside Only CRV": "/CRV-RAV4-VOXY.jpg",
+
+  "Outside/Inside Only Bus": "/COASTER.jpg",
+
+  "Outside/Inside Only truck": "/COMMERCIAL TRUCK.jpg",
+
+  "Engine Wash": "/engine steam cleaning.JPG",
+
+  "Detaling Seat": "/Car seat before after.JPG",
+  "Detailing Seat": "/Car seat before after.JPG",
+
+  "Detailing Roof": "/sealing detailing.JPG",
+
+  "Detailing Floor": "/Floor detailing.JPG",
+
+  "Detailing Wheel": "/buffing detailing.JPG",
+
+  "Detailing Head lights": "/buffing detailing.JPG",
+}
+
+function getServiceImage(name: string, category: ServiceCategory) {
+  if (SERVICE_IMAGES[name]) {
+    return SERVICE_IMAGES[name]
+  }
+
+  if (category === "Diagnostics") {
+    return "/Diagnostic.JPG"
+  }
+
+  if (category === "Steam") {
+    return "/vent steam cleaning.JPg"
+  }
+
+  if (category === "Detailing") {
+    return "/buffing detailing.JPG"
+  }
+
+  return "/SEDAN.jpg"
+}
+
 type Filter = "All" | ServiceCategory
 
-const FILTERS: Filter[] = ["All", ...CATEGORIES]
+const FILTERS: Filter[] = [
+  "All",
+  ...CATEGORIES,
+]
 
 export function ServicesSection() {
   const [filter, setFilter] = useState<Filter>("All")
 
-  const visible = services.filter((s) => filter === "All" || s.category === filter)
+  const visible = services.filter(
+    (service) =>
+      filter === "All" ||
+      service.category === filter,
+  )
 
   return (
-    <section id="services" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="mb-2 text-xs font-medium uppercase tracking-widest text-primary">Service Menu</p>
-          <h2 className="text-balance font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
-            What we do
-          </h2>
+    <section
+      id="services"
+      className="scroll-mt-20 px-4 py-20 sm:px-6"
+    >
+      <div className="mx-auto max-w-6xl">
+        {/* Section heading */}
+
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+              Bennetts Auto Care
+            </p>
+
+            <h2 className="text-balance font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
+              Our Services
+            </h2>
+          </div>
+
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+            Professional cleaning, detailing, steam treatment
+            and vehicle diagnostic services. All prices are in
+            Jamaican dollars.
+          </p>
         </div>
-        <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-          All prices in Jamaican dollars. Pick a category to narrow things down, then book the service you need.
-        </p>
-      </div>
 
-      <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter services by category">
-        {FILTERS.map((f) => {
-          const active = filter === f
-          return (
-            <button
-              key={f}
-              role="tab"
-              aria-selected={active}
-              onClick={() => setFilter(f)}
-              className={`rounded-sm border px-4 py-2 text-sm font-semibold uppercase tracking-wide transition-colors ${
-                active
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {f}
-            </button>
-          )
-        })}
-      </div>
+        {/* Filters */}
 
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((s) => {
-          const Icon = CATEGORY_ICON[s.category]
-          return (
-            <article
-              key={s.name}
-              className="group flex flex-col rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/60"
-            >
-              <div className="flex items-center justify-between">
-                <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-secondary text-primary">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                  {s.category}
-                </span>
-              </div>
+        <div
+          className="mt-8 flex flex-wrap gap-2"
+          role="tablist"
+          aria-label="Filter services by category"
+        >
+          {FILTERS.map((filterName) => {
+            const active = filter === filterName
 
-              <h3 className="mt-4 font-display text-lg font-semibold leading-tight">{s.name}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
-
-              <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-                <span className="font-display text-xl font-bold text-primary">{s.price}</span>
-                <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                  {s.duration}
-                </span>
-              </div>
-
-              <a
-                href={SETMORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center justify-center rounded-sm bg-primary/10 px-4 py-2.5 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+            return (
+              <button
+                key={filterName}
+                role="tab"
+                aria-selected={active}
+                onClick={() => setFilter(filterName)}
+                className={`rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all ${
+                  active
+                    ? "border-primary bg-primary text-primary-foreground shadow-lg"
+                    : "border-border bg-secondary text-muted-foreground hover:border-primary/60 hover:text-white"
+                }`}
               >
-                Book This Service
-              </a>
-            </article>
-          )
-        })}
+                {filterName}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Service cards */}
+
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {visible.map((service) => {
+            const Icon = CATEGORY_ICON[service.category]
+
+            const image = getServiceImage(
+              service.name,
+              service.category,
+            )
+
+            return (
+              <article
+                key={service.name}
+                className="group flex overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/60 hover:shadow-2xl"
+              >
+                <div className="flex w-full flex-col">
+                  {/* Image */}
+
+                  <div className="relative h-52 w-full overflow-hidden">
+                    <Image
+                      src={image}
+                      alt={`${service.name} at Bennetts Auto Care`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+
+                    {/* Image overlay */}
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#031333] via-transparent to-transparent" />
+
+                    {/* Category */}
+
+                    <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#ffc400] text-[#061b49] shadow-lg">
+                        <Icon
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                        />
+                      </span>
+
+                      <span className="rounded-full bg-[#061b49]/85 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
+                        {service.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="font-display text-xl font-bold leading-tight text-white">
+                      {service.name}
+                    </h3>
+
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {service.description}
+                    </p>
+
+                    {/* Price */}
+
+                    <div className="mt-5 flex items-end justify-between border-t border-border pt-4">
+                      <div>
+                        <span className="block text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                          From
+                        </span>
+
+                        <span className="font-display text-2xl font-bold text-primary">
+                          {service.price}
+                        </span>
+                      </div>
+
+                      <span className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
+                        <Clock
+                          className="h-3.5 w-3.5"
+                          aria-hidden="true"
+                        />
+                        {service.duration}
+                      </span>
+                    </div>
+
+                    {/* Booking */}
+
+                    <a
+                      href={SETMORE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-4 py-3 text-sm font-bold uppercase tracking-wide text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-[#ffd12a] hover:shadow-lg"
+                    >
+                      Book This Service
+                    </a>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
+        </div>
+
+        {/* Bottom note */}
+
+        <div className="mt-10 rounded-2xl border border-primary/20 bg-secondary/40 p-5 text-center">
+          <p className="text-sm text-muted-foreground">
+            Not sure which service your vehicle needs?
+            <span className="font-semibold text-white">
+              {" "}
+              Ask our BAC Service Advisor.
+            </span>
+          </p>
+        </div>
       </div>
     </section>
   )
