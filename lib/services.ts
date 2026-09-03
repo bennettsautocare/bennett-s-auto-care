@@ -165,7 +165,7 @@ export const services: Service[] = [
     price: "$4,500",
     duration: "35 min",
     description: "Brake-system bleeding for trapped air in the module.",
-    image: "/ABS Diagnostics.jpeg",
+    image: "/ABS Diagnostics.jpg",
   },
   {
     category: "Diagnostics",
