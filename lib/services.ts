@@ -74,7 +74,7 @@ export const services: Service[] = [
     duration: "2 hrs",
     description:
       "Deep clean for seats, dashboard, floor and regular wash package.",
-    image: "/Car seat before after 2.jpg",
+    image: "/Car seat before after 2.JPG",
   },
   {
     category: "Detailing",
