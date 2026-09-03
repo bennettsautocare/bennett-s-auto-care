@@ -61,7 +61,7 @@ export const services: Service[] = [
     price: "$7,000",
     duration: "1 hr 30 min",
     description: "Keep your commercial vehicle clean and presentable.",
-    image: "/commercial truck.jpg",
+    image: "/COMMERCIAL TRUCK.jpg",
   },
 
   // =========================
@@ -74,7 +74,7 @@ export const services: Service[] = [
     duration: "2 hrs",
     description:
       "Deep clean for seats, dashboard, floor and regular wash package.",
-    image: "/car seat before after 2.jpg",
+    image: "/Car seat before after 2.jpg",
   },
   {
     category: "Detailing",
