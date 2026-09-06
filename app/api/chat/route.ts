@@ -31,11 +31,14 @@ ${serviceList}`
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json()
 
-  const result = streamText({
-    model: "openai/gpt-4.1-mini",
-    system: SYSTEM_PROMPT,
-    messages: await convertToModelMessages(messages),
-  })
+const result = streamText({
+  model: "openai/gpt-4.1-mini",
+  system: SYSTEM_PROMPT,
+  messages: await convertToModelMessages(messages),
+  onError({ error }) {
+    console.error("AI CHAT ERROR:", error)
+  },
+})
 
   return result.toUIMessageStreamResponse()
 }
