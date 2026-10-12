@@ -34,7 +34,7 @@ export function Hero() {
           interior revival, {BUSINESS_INFO.short} keeps your vehicle looking and running its best.
         </p>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
             href={SETMORE_URL}
             target="_blank"
@@ -43,6 +43,14 @@ export function Hero() {
           >
             Book an Appointment
           </a>
+
+          <a
+            href="/loyalty"
+            className="inline-flex items-center justify-center rounded-sm border border-primary bg-primary/10 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary/20"
+          >
+            Join the Loyalty Club
+          </a>
+
           <a
             href="#services"
             className="inline-flex items-center justify-center rounded-sm border border-border bg-card/40 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-foreground transition-colors hover:bg-card"
