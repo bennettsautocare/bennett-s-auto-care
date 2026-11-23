@@ -45,10 +45,10 @@ export function Hero() {
           </a>
 
           <a
-            href="/loyalty"
+            href="/rewards"
             className="inline-flex items-center justify-center rounded-sm border border-primary bg-primary/10 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary transition-colors hover:bg-primary/20"
           >
-            Join the Loyalty Club
+            Explore BAC Rewards
           </a>
 
           <a

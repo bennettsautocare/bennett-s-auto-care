@@ -4,7 +4,7 @@ import { SETMORE_URL } from "@/lib/services"
 
 const NAV = [
   { label: "Services", href: "#services" },
-  { label: "Loyalty", href: "#loyalty" },
+  { label: "BAC Rewards", href: "/rewards" },
   { label: "Visit", href: "#visit" },
 ]
 

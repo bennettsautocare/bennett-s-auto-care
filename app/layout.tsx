@@ -7,9 +7,9 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' })
 
 export const metadata: Metadata = {
-  title: 'Bennetts Auto Care | Car Cleaning, Detailing & Diagnostics — Montego Bay',
+  title: 'Bennett’s AutoCare | Car Wash, Detailing, Diagnostics & BAC Rewards — Montego Bay',
   description:
-    'Bennetts Auto Care (BAC) in Montego Bay, Jamaica. Professional car cleaning, detailing, steam cleaning and vehicle diagnostics. Book online and join our loyalty rewards.',
+    'Bennetts Auto Care (BAC) in Montego Bay, Jamaica. Professional car cleaning, detailing, steam cleaning and vehicle diagnostics. Book online and explore BAC Rewards memberships for individual vehicles, families and corporate fleets.',
   generator: 'v0.app',
 }
 
