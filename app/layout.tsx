@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oswald } from 'next/font/google'
 import './globals.css'
+import { WhatsAppBubble } from '@/components/whatsapp-bubble'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' })
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en" className={`dark bg-background ${inter.variable} ${oswald.variable}`}>
       <body className="font-sans antialiased">
         {children}
+        <WhatsAppBubble />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
